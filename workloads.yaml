@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: polyclinic-app
+spec:
+  selector:
+    app: polyclinic-app
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      nodePort: 31000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polyclinic-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: polyclinic-app
+  template:
+    metadata:
+      labels:
+        app: polyclinic-app
+    spec:
+      containers:
+        - env:
+            - name: DB_SERVER
+              value: mysqldb-polyclinic
+            - name: MYSQL_DATABASE
+              value: polyclinic
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PASSWORD
+              value: ""
+          image: nzakharchynn/polyclinic-app
+          name: polyclinic-app
+          ports:
+            - name: http
+              containerPort: 8080
+
+---
