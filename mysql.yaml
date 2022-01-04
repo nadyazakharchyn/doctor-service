@@ -19,12 +19,12 @@ spec:
             - name: MYSQL_USER
               value: root
             - name: MYSQL_PASSWORD
-              value: ""
+              value: "Remindmetoforget.1304"
             - name: MYSQL_HOST
               value: "%"
           image: mysql/mysql-server
           imagePullPolicy: ""
-          name: mysqldb-supermarket
+          name: mysqldb-polyclinic
           ports:
             - containerPort: 3306
 
